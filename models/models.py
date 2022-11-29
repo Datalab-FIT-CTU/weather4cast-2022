@@ -86,17 +86,15 @@ class WeatherFusionNet(BaseLitModule):
         self.upscale = torch.nn.Upsample(scale_factor=6, mode='bilinear', align_corners=True)
 
     def forward(self, x, return_inter=False):
-        bs = x.shape[0]
-
         self.sat2rad.eval()
         with torch.no_grad():
-            sat2rad_out = self.sat2rad(x.swapaxes(1, 2)).reshape(bs, 4, 252, 252)
+            sat2rad_out = self.sat2rad(x.swapaxes(1, 2)).reshape(x.shape[0], 4, x.shape[-2], x.shape[-1])
 
         self.phydnet.eval()
         with torch.no_grad():
-            phydnet_out = self.phydnet(x.swapaxes(1, 2)).reshape(bs, -1, 252, 252)
+            phydnet_out = self.phydnet(x.swapaxes(1, 2)).flatten(1, 2)
 
-        x = torch.concat([x.reshape(bs, -1, 252, 252), phydnet_out, sat2rad_out], dim=1)
+        x = torch.concat([x.flatten(1, 2), phydnet_out, sat2rad_out], dim=1)
         unet_out = x = self.unet(x)
         x = x[crop_slice()]
         x = self.upscale(x[:, 0]).unsqueeze(1)
