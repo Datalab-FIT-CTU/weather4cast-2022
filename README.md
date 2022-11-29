@@ -6,13 +6,13 @@ This is our solution to the Weather4cast 2022 competition, we achieved 1st place
 
 ## Usage instructions
 
-Download the data (see link above) and extract it into the `data` subfolder, or edit `models/configurations/config.yaml` to point to the right folder.
-
-Install dependencies with
-```
-conda env create -f environment.yml
-conda activate weather4cast
-```
+- Download the data (see link above) and extract it into the `data` subfolder, or edit `models/configurations/config.yaml` to point to the right folder.
+- Install dependencies with
+  ```
+  conda env create -f environment.yml
+  conda activate weather4cast
+  ```
+- Download trained weights from [Releases](https://github.com/Datalab-FIT-CTU/weather4cast-2022/releases).
 
 ### Generating a submission
 
