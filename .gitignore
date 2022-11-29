@@ -150,3 +150,9 @@ dmypy.json
 
 #vsc
 .vscode/
+
+
+checkpoints
+wandb
+nohup.out
+submission

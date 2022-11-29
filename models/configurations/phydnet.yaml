@@ -1,0 +1,51 @@
+arch:
+  type: PhyDNet
+  args:
+    len_in: 4
+    len_out: 10
+    img_width: 252
+    img_height: 252
+    teacher_step: 5.0e-05
+  phycell_args:
+    input_dim: 64
+    F_hidden_dims:
+    - 49
+    n_layers: 1
+    kernel_size:
+    - 7
+    - 7
+  convcell_args:
+    input_dim: 64
+    hidden_dims:
+    - 128
+    - 128
+    - 64
+    n_layers: 3
+    kernel_size:
+    - 3
+    - 3
+  encoder_args:
+    n_channels: 11
+
+optimizer:
+  type: Adam
+  args:
+    lr: 0.001
+
+loss:
+  type: L1L2
+  args: {}
+
+metrics_detail:
+- - mae
+  - {}
+- - mse
+  - {}
+- - CSI
+  - threshold: 0.133
+    remove_nan: true
+- - CSI
+  - threshold: 0.67
+    remove_nan: true
+- - PredictionMean
+  - {}

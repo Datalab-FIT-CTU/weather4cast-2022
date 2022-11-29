@@ -203,7 +203,7 @@ def get_training_idxs(df, len_seq_in, len_seq_predict, data_split, region, years
         h2, m2, s2 = get_hours_minutes_seconds(e_id)
         end_dt = datetime(yy2, mm2, dd2, h2, m2, s2)
 
-        if start_dt + timedelta(hours=8, minutes=45, seconds=0) == end_dt:
+        if start_dt + timedelta(minutes=15 * (len_seq_in + len_seq_predict - 1)) == end_dt:
             # print(get_future_time(df.iloc[i]['time'], (len_seq_predict * 15)))
             in_seq = [i + j for j in range(len_seq_in)]
             out_seq = [i + len_seq_in + j for j in range(len_seq_predict)]
