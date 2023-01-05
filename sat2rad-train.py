@@ -11,7 +11,6 @@ WANDB_LOGGING = False
 
 if WANDB_LOGGING:
     import wandb
-    wandb.login(key="7f97310b61bd5aeaaf34b363b74f851109876005", relogin=True, force=True)
     wandb_logger = pl.loggers.WandbLogger(name=f"UNet -> crop -> upscale", project="w4c sat2rad")
 
 

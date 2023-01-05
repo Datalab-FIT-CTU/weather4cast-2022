@@ -8,7 +8,6 @@ WANDB_LOGGING = False
 
 if WANDB_LOGGING:
     import wandb
-    wandb.login(force=True, key="7f97310b61bd5aeaaf34b363b74f851109876005", relogin=True)
     wandb_logger = pl.loggers.WandbLogger(name="PhyDNet", project="w4c satellite")
 
 

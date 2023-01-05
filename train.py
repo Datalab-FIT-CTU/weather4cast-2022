@@ -95,7 +95,6 @@ def get_trainer(gpus,params):
     ddppplugin = None   
 
     if WANDB_LOGGING:
-        wandb.login(force=True, key="7f97310b61bd5aeaaf34b363b74f851109876005", relogin=True)
         wandb_logger = pl.loggers.WandbLogger(name=params['experiment']['name'], project="w4c stage 2")
 
     checkpoint_callback = ModelCheckpoint(
