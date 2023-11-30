@@ -2,7 +2,7 @@
 
 ![Model diagram](/images/model-diagram.png "Model diagram")
 
-This is our solution to the Weather4cast 2022 competition, we achieved 1st place in the Core Challenge. For more info about the competition, description of the used data and a baseline starter kit, please see [iarai/weather4cast-2022](https://github.com/iarai/weather4cast-2022). The related paper is WeatherFusionNet: Predicting Precipitation from Satellite Data at https://arxiv.org/abs/2211.16824.
+This is our solution to the Weather4cast 2023 competition, we achieved 2nd place in the Core Challenge. For more info about the competition, description of the used data and a baseline starter kit, please see [iarai/weather4cast-2022](https://github.com/iarai/weather4cast-2022). The related paper is WeatherFusionNet: Predicting Precipitation from Satellite Data at https://arxiv.org/abs/2211.16824.
 
 ## Usage instructions
 
