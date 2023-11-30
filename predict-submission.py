@@ -1,6 +1,7 @@
 import argparse
 import itertools
 import os
+import torch
 import pytorch_lightning as pl
 from torch.utils.data import DataLoader
 import numpy as np
@@ -8,8 +9,6 @@ import numpy as np
 from utils.data_utils import tensor_to_submission_file
 from utils.w4c_dataloader import RainData
 from utils.data_utils import load_config
-
-from models.models import *
 
 
 parser = argparse.ArgumentParser()
@@ -27,11 +26,11 @@ options = parser.parse_args()
 
 config = load_config(options.config_path)
 
-# model = UNetCropUpscale.load_from_checkpoint(options.checkpoint, config=config)
-model = WeatherFusionNet.load_from_checkpoint(options.checkpoint, config=config)
+from models.models import ThresholdWFN
+model = ThresholdWFN.load_from_checkpoint(options.checkpoint, config=config)
 
 
-trainer = pl.Trainer(gpus=options.gpus)
+trainer = pl.Trainer(accelerator="gpu" if options.gpus else None, devices=options.gpus)
 
 
 years = config["dataset"]["years"]
@@ -73,7 +72,6 @@ for year, region in years_regions:
     preds = trainer.predict(model, loader)
     preds = torch.concat(preds)
 
-    print(f"Positive ratio {region}:", float(preds.sum()) / np.prod(np.array(preds.shape)))
     tensor_to_submission_file(preds, config["predict"])
 
 print("Zipping submission")

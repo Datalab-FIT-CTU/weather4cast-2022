@@ -102,3 +102,13 @@ class WeatherFusionNet(BaseLitModule):
         if return_inter:
             return sat2rad_out, phydnet_out, unet_out, x
         return x
+
+
+class ThresholdWFN(WeatherFusionNet):
+    def predict_step(self, batch, batch_idx):
+        x, y, metadata = batch
+        pred_prob = torch.sigmoid(self(x))
+        pred = torch.zeros_like(pred_prob)
+        for threshold_mm, threshold_prob in zip([0.2, 1, 5, 10, 15], [0.5, 0.75, 0.92, 0.96, 0.97]):
+            pred[pred_prob > threshold_prob] = threshold_mm + 0.1
+        return pred
